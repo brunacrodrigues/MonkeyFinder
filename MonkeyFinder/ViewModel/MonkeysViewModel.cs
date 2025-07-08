@@ -1,4 +1,5 @@
 ﻿using MonkeyFinder.Services;
+using MonkeyFinder.View;
 
 namespace MonkeyFinder.ViewModel;
 
@@ -17,6 +18,20 @@ public partial class MonkeysViewModel : BaseViewModel
     }
 
     [RelayCommand]
+    async Task GoToDetailsAsync(Monkey monkey)
+    {
+        if (monkey is null)
+            return;
+
+        await Shell.Current.GoToAsync($"{nameof(DetailsPage)}", true,
+            new Dictionary<string, object>
+            {
+                {"Monkey", monkey}
+            });
+    }
+
+
+    [RelayCommand]
     async Task GetMonkeysAsync()
     {
         if (IsBusy)
@@ -32,7 +47,7 @@ public partial class MonkeysViewModel : BaseViewModel
 
             foreach (var monkey in monkeys)
                 Monkeys.Add(monkey);
-            
+
         }
         catch (Exception ex)
         {

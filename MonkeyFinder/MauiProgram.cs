@@ -22,7 +22,11 @@ namespace MonkeyFinder
 
             builder.Services.AddSingleton<MonkeysViewModel>();
 
+            // sempre que solicitado cria uma nova instância
+            builder.Services.AddTransient<MonkeyDetailsViewModel>();
+
             builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddTransient<DetailsPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();
