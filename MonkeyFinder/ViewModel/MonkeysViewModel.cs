@@ -20,6 +20,9 @@ public partial class MonkeysViewModel : BaseViewModel
         this.geolocation = geolocation;
     }
 
+    [ObservableProperty]
+    bool isRefreshing;
+
 
     [RelayCommand]
     async Task GetClosestMonkeyAsync()
@@ -60,6 +63,8 @@ public partial class MonkeysViewModel : BaseViewModel
                 await Shell.Current.DisplayAlert("Error!", $"Unable to get closest monkey: {ex.Message}", "OK");
             }
     }
+
+
 
     [RelayCommand]
     async Task GoToDetailsAsync(Monkey monkey)
@@ -109,6 +114,7 @@ public partial class MonkeysViewModel : BaseViewModel
         finally
         {
             IsBusy = false;
+            IsRefreshing = false;
         }
     }
 
